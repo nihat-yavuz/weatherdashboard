@@ -1,6 +1,5 @@
 package org.wd.weatherdashboard.ui;
 
-
 import org.wd.weatherdashboard.api.WeatherApiClient;
 import org.wd.weatherdashboard.api.WeatherResponseParser;
 import javafx.application.Application;
@@ -16,6 +15,9 @@ public class WeatherDashboardApp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Weather Dashboard");
 
+        Label apiKeyLabel = new Label("Enter OpenWeather API Key:");
+        TextField apiKeyTextField = new TextField();
+
         Label cityLabel = new Label("Enter city:");
         TextField cityTextField = new TextField();
         Button getWeatherButton = new Button("Get Weather");
@@ -23,13 +25,13 @@ public class WeatherDashboardApp extends Application {
         weatherInfoTextArea.setEditable(false);
 
         getWeatherButton.setOnAction(e -> {
+            String apiKey = apiKeyTextField.getText();
             String city = cityTextField.getText();
             weatherInfoTextArea.setText("Fetching weather for " + city + "...");
 
             // Fetch and display weather information
             new Thread(() -> {
                 try {
-                    String apiKey = "39f41738c394b81d756130148706c2c8"; // Replace with your actual API key
                     WeatherApiClient weatherApiClient = new WeatherApiClient(apiKey);
                     String currentWeatherResponse = weatherApiClient.getCurrentWeather(city);
                     String parsedCurrentWeather = WeatherResponseParser.parseCurrentWeather(currentWeatherResponse);
@@ -43,7 +45,7 @@ public class WeatherDashboardApp extends Application {
             }).start();
         });
 
-        VBox vbox = new VBox(10, cityLabel, cityTextField, getWeatherButton, weatherInfoTextArea);
+        VBox vbox = new VBox(10, apiKeyLabel, apiKeyTextField, cityLabel, cityTextField, getWeatherButton, weatherInfoTextArea);
         Scene scene = new Scene(vbox, 400, 300);
 
         primaryStage.setScene(scene);
@@ -54,4 +56,3 @@ public class WeatherDashboardApp extends Application {
         launch(args);
     }
 }
-
