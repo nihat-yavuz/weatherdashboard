@@ -1,5 +1,3 @@
-Sure, here is the `README.md` content in plain text with markdown formatting:
-
 # Weather Dashboard
 
 The Weather Dashboard is a simple Java application that fetches and displays current weather information for a specified city using the OpenWeatherMap API. It features a graphical user interface (GUI) built with JavaFX, and allows users to input their OpenWeather API key directly through the UI.
